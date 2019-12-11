@@ -12,13 +12,13 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 
 	<context:component-scan base-package="com.sihai.controller" />
-	
+
 	<!-- 自动创建代理 对@AspectJ注解的支持 -->
-	<!-- 通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller --> 
+	<!-- 通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller -->
 	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 
 	<mvc:annotation-driven />
-	
+
 	<!-- 开启aop，对类代理 -->
 	<aop:config proxy-target-class="true"></aop:config>
 
@@ -27,12 +27,13 @@
 	<mvc:resources mapping="/static/**" location="/static/" cache-period="31556926"/>
 	<mvc:resources mapping="/portal/**" location="/portal/" cache-period="31556926"/>
 	<mvc:resources mapping="/errors/**" location="/errors/" cache-period="31556926"/>
-	
+
+    <!--配置视图，决定ModeAndView寻找的路径，根据viewName进行查找-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
+
 	<!-- 配置多媒体文件解析器 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -40,11 +41,11 @@
 		<property name="defaultEncoding" value="UTF-8"></property>
 		<!-- 设定文件上传的最大值2MB， 2*1024*1024 -->
 		<property name="maxUploadSize" value="2097152"></property>
-		<!--resolveLazily属性启用是为了推迟文件解析，以便在UploadAction 中捕获文件大小异常--> 
-		<property name="resolveLazily" value="true"/>    
+		<!--resolveLazily属性启用是为了推迟文件解析，以便在UploadAction 中捕获文件大小异常-->
+		<property name="resolveLazily" value="true"/>
 	</bean>
-	
+
 	<!-- 属性文件不能跨容器，要在controller中也能被访问到，也需要配置 -->
 	<context:property-placeholder location="classpath:resource/*.properties" />
-	
+
 </beans>
